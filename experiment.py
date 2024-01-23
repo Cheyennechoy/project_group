@@ -34,18 +34,27 @@ print(Cash_on_Hand)
 #         break 
 
 start = 0
+for day in Cash_on_Hand: 
+    COH = float(day[1])
+    if COH > start: 
+        start = COH 
+
+    else: 
+        break 
+
+    print(start)
 
 # calculates and prints cash deficit 
-deficits = []
+# deficits = []
 
-for day in Cash_on_Hand: 
-    diff = float(day[1]) - start 
-    start = float(day[1])
-    if diff < 0: 
-        print(f"[CASH DEFICIT] DAY: {day[0]}, AMOUNT: SGD{abs(diff)}")
-        deficits.append((diff,day[0]))
+# for day in Cash_on_Hand: 
+#     diff = float(day[1]) - start 
+#     start = float(day[1])
+#     if diff < 0: 
+#         print(f"[CASH DEFICIT] DAY: {day[0]}, AMOUNT: SGD{abs(diff)}")
+#         deficits.append((diff,day[0]))
     
-deficits.sort()
-print(f"[HIGHEST CASH DEFICIT] DAY: {deficits[0][1]}, AMOUNT: SGD{abs(deficits[0][0])}")
-print(f"[2ND HIGHEST CASH DEFICIT] DAY: {deficits[1][1]}, AMOUNT: SGD{abs(deficits[1][0])}")
-print(f"[3RD HIGHEST CASH DEFICIT] DAY: {deficits[2][1]}, AMOUNT: SGD{abs(deficits[2][0])}")
+# deficits.sort()
+# print(f"[HIGHEST CASH DEFICIT] DAY: {deficits[0][1]}, AMOUNT: SGD{abs(deficits[0][0])}")
+# print(f"[2ND HIGHEST CASH DEFICIT] DAY: {deficits[1][1]}, AMOUNT: SGD{abs(deficits[1][0])}")
+# print(f"[3RD HIGHEST CASH DEFICIT] DAY: {deficits[2][1]}, AMOUNT: SGD{abs(deficits[2][0])}")
