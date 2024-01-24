@@ -17,48 +17,26 @@ with fp.open(mode="r", encoding="UTF-8", newline="") as file:
         #and append to the Cash_on_Hand list
         Cash_on_Hand.append([row[0],row[1]])   
 
-# print(Cash_on_Hand)
-
-
-surplus = []
-# calculates and prints cash deficit 
-deficits = []
 start = 0
+deficits = []
 
-for day in Cash_on_Hand: 
-    COH = day[1]
-    if COH > start: 
-        s = COH - start
-        surplus.append((s,day[0]))
-        COH = start 
-        if len(surplus) == len(Cash_on_Hand): 
-            surplus.sort 
-            print(f"[HIGHEST CASH DEFICIT] DAY: {surplus[0][1]}, AMOUNT: {surplus[0][0]}")
-
-for day in Cash_on_Hand: 
-    diff = float(day[1]) - start 
+# Calculates all cash deficits and stores it in a list
+for day in Cash_on_Hand:
+    diff = float(day[1]) - start
     start = float(day[1])
-    if diff < 0: 
-        print(f"[CASH DEFICIT] DAY: {day[0]}, AMOUNT: SGD{abs(diff)}")
-        deficits.append((diff,day[0]))
-    
-deficits.sort()
-print(f"[HIGHEST CASH DEFICIT] DAY: {deficits[0][1]}, AMOUNT: SGD{abs(deficits[0][0])}")
-print(f"[2ND HIGHEST CASH DEFICIT] DAY: {deficits[1][1]}, AMOUNT: SGD{abs(deficits[1][0])}")
-print(f"[3RD HIGHEST CASH DEFICIT] DAY: {deficits[2][1]}, AMOUNT: SGD{abs(deficits[2][0])}")
+    if diff < 0:
+        deficits.append((day[0], abs(diff)))
 
-# start = 0
-# x = 0
-# for day in Cash_on_Hand: 
-#     COH = float(day[1])
-#     # while coh is continuosly increasing
-#     while COH > start: 
-#         diff = COH - start 
-#         start = COH 
-#         if diff > x: 
-#             diff = diff 
+# Sorts deficits in descending order
+deficits.sort(key=lambda x:x[1],reverse=True)
 
-#     else: 
-#         break 
+# Prints all cash deficits
+for day, amount in deficits:
+    print(f"[CASH DEFICIT] DAY: {day},AMOUNT: SGD{amount}")
 
-# print(diff)
+# Prints top 3 highest cash deficits
+print(f"[HIGHEST CASH DEFICIT] DAY: {deficits[0][0]},AMOUNT: SGD{deficits[0][1]:.0f}")
+if len(deficits) > 1:
+    print(f"[2ND HIGHEST CASH DEFICIT] DAY: {deficits[1][0]},AMOUNT: SGD{deficits[1][1]:.0f}")
+if len(deficits) > 2:
+    print(f"[3RD HIGHEST CASH DEFICIT] DAY: {deficits[2][0]},AMOUNT: SGD{deficits[2][1]:.0f}")
