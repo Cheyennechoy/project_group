@@ -1,7 +1,7 @@
 from pathlib import Path 
 import csv 
 # Create a file path to csv file.
-fp = Path.cwd()/"csv_reports"/"Profit_and_Loss.csv"
+fp = Path.cwd()/"csv_reports"/"Modified_Profit_and_Loss.csv"
 
 # Read the csv file.
 with fp.open(mode="r", encoding="UTF-8", newline="") as file:
@@ -47,7 +47,7 @@ for day in profitloss[1:]:
 if len(surplus) == len(profitloss)-1: 
     surplus.sort()
     print(f"[NET PROFIT SURPLUS] NET PROFIT ON EACH DAY IS HIGHER THEN THE PREVIOUS DAY")
-    print(f"[HIGHEST NET PROFIT SURPLUS] DAY: {surplus[-1][1]}, AMOUNT: SGD {abs(surplus[0][0])}")
+    print(f"[HIGHEST NET PROFIT SURPLUS] DAY: {surplus[-1][1]}, AMOUNT: SGD {abs(surplus[-1][0])}")
 
 # If profit and loss is always decreasing
 elif len(deficits) == len(profitloss)-1 : 
