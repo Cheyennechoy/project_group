@@ -2,8 +2,13 @@ from pathlib import Path
 import csv
 
 def overheadsfunc():
+    """
+    Reads CSV file and finds the highest overhead category and it's value.
+    """
     # create a file path to csv file.
     fp = Path.cwd()/"csv_reports"/"Overheads.csv"
+
+    result = "" # Stores results
 
     # read the csv file.
     with fp.open(mode="r", encoding="UTF-8", newline="") as file:
@@ -26,6 +31,5 @@ def overheadsfunc():
             start = value 
             highest = category[0]
 
-    print(f"[HIGHEST OVERHEAD] {highest.upper()}: {start}%")\
-
-print(overheadsfunc())
+    result += f"[HIGHEST OVERHEAD] {highest.upper()}: {start}%\n"    
+    return result

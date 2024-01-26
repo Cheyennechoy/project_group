@@ -2,7 +2,12 @@ from pathlib import Path
 import csv
 
 def profitandloss():
-   
+    """
+    Reads from CSV file and calculates the day to day diffrence in net profit.
+    - If the net profit is always increasing: it finds out the day and amount the highest increment occurs.
+    - If the net profit is always decreasing: it finds out the day and amount the highest decrement occurs. 
+    - If the net profit fluctuates: it lists down all the days and amounts when a deficit occurs, also finds out the top 3 highest deficit amounts and the days it occured.
+    """
     # Create a file path to csv file     
     fp = Path.cwd()/"csv_reports"/"Profit_and_Loss.csv"
     # Read the csv file
@@ -47,28 +52,28 @@ def profitandloss():
 
     # Prints results based on the scenarios
     # If profit and loss is always increasing
+    result="" # Stores results
     if len(surplus) == len(profitloss)-1: 
         surplus.sort()
-        print("[NET PROFIT SURPLUS] NET PROFIT ON EACH DAY IS HIGHER THEN THE PREVIOUS DAY")
-        print(f"[HIGHEST NET PROFIT SURPLUS] DAY: {surplus[-1][1]}, AMOUNT: SGD {abs(surplus[-1][0])}")
+        result += "[NET PROFIT SURPLUS] NET PROFIT ON EACH DAY IS HIGHER THEN THE PREVIOUS DAY\n"
+        result += f"[HIGHEST NET PROFIT SURPLUS] DAY: {surplus[-1][1]}, AMOUNT: SGD {abs(surplus[-1][0])}\n"
 
     # If profit and loss is always decreasing
     elif len(deficits) == len(profitloss)-1 : 
         deficits.sort()
-        print("[NET PROFIT DEFICIT] NET PROFIT ON EACH DAY IS LOWER THEN THE PREVIOUS DAY")
-        print(f"[HIGHEST NET PROFIT DEFICIT] DAY: {deficits[0][1]}, AMOUNT: SGD {abs(deficits[0][0])}")
+        result += "[NET PROFIT DEFICIT] NET PROFIT ON EACH DAY IS LOWER THEN THE PREVIOUS DAY\n"
+        result += f"[HIGHEST NET PROFIT DEFICIT] DAY: {deficits[0][1]}, AMOUNT: SGD {abs(deficits[0][0])}\n"
 
     # If profit and loss fluctuates
     else: 
         # Lists all days with a deficit and the amount
         for day in fluctuate: 
             if day[0] < 0: 
-                    print(f"[NET PROFIT DEFICIT] DAY: {day[1]}, AMOUNT: SGD {abs(day[0])}")
+                    result += f"[NET PROFIT DEFICIT] DAY: {day[1]}, AMOUNT: SGD {abs(day[0])}\n"
         # Sorts and prints the top 3 highest deficits
         fluctuate.sort()
-        print(f"[HIGHEST NET PROFIT DEFICIT] DAY: {fluctuate[0][1]}, AMOUNT: SGD {abs(fluctuate[0][0])}")
-        print(f"[2ND HIGHEST NET PROFIT DEFICIT] DAY: {fluctuate[1][1]}, AMOUNT: SGD {abs(fluctuate[1][0])}")
-        print(f"[3RD HIGHEST NET PROFIT DEFICIT] DAY: {fluctuate[2][1]}, AMOUNT: SGD {abs(fluctuate[2][0])}")
+        result += f"[HIGHEST NET PROFIT DEFICIT] DAY: {fluctuate[0][1]}, AMOUNT: SGD {abs(fluctuate[0][0])}\n"
+        result += f"[2ND HIGHEST NET PROFIT DEFICIT] DAY: {fluctuate[1][1]}, AMOUNT: SGD {abs(fluctuate[1][0])}\n"
+        result += f"[3RD HIGHEST NET PROFIT DEFICIT] DAY: {fluctuate[2][1]}, AMOUNT: SGD {abs(fluctuate[2][0])}\n"
 
-# Test
-print(profitandloss())
+    return result
