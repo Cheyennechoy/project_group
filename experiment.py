@@ -1,42 +1,81 @@
-from pathlib import Path 
-import csv 
-# create a file path to csv file.
-fp = Path.cwd()/"csv_reports"/"Cash_on_Hand.csv"
+from pathlib import Path
+import csv
 
-# read the csv file.
-with fp.open(mode="r", encoding="UTF-8", newline="") as file:
-    reader = csv.reader(file)
-    next(reader) # skip header
+def profit_loss(csv_file_path):
+    def calculations(profitloss):
 
-    # create an empty list
-    Cash_on_Hand=[] 
+        # Create Lists for cash surplus, deficits and fluctuations
+        surplus = []
+        deficits = []
+        fluctuate = []
 
-    # append day and cash on hand into the Cash_on_Hand list
-    for row in reader:
-        #get the day, cash on hand 
-        #and append to the Cash_on_Hand list
-        Cash_on_Hand.append([row[0],row[1]])   
+        start = float(profitloss[0][1])
 
-start = 0
-deficits = []
+        # Calculate changes in profit and loss for each day
+        for day in profitloss[1:]: 
+            
+            PAL = float(day[1]) # Make profit and lost a float
+            diff = round(PAL - start) # Calculate change in profit and loss and round to 0dp
 
-# Calculates all cash deficits and stores it in a list
-for day in Cash_on_Hand:
-    diff = float(day[1]) - start
-    start = float(day[1])
-    if diff < 0:
-        deficits.append((day[0], abs(diff)))
+            # Check for an increase in profit and loss/surplus
+            if PAL > start: 
+                surplus.append((diff,day[0]))
+                fluctuate.append((diff,day[0]))
+                start = PAL
 
-# Sorts deficits in descending order
-deficits.sort(key=lambda x:x[1],reverse=True)
+            # Check for an decrease in profit and loss/deficit
+            elif PAL < start: 
+                deficits.append((diff,day[0]))
+                fluctuate.append((diff,day[0]))
+                start = PAL
+        # return the surplus, deficits and fluctuations
+        return surplus, deficits, fluctuate
 
-# Prints all cash deficits
-for day, amount in deficits:
-    print(f"[CASH DEFICIT] DAY: {day},AMOUNT: SGD{amount}")
+    # Create a file path to csv file
+    fp = Path.cwd()/"csv_reports"/"Profit_and_Loss.csv"
 
-# Prints top 3 highest cash deficits
-print(f"[HIGHEST CASH DEFICIT] DAY: {deficits[0][0]},AMOUNT: SGD{deficits[0][1]:.0f}")
-if len(deficits) > 1:
-    print(f"[2ND HIGHEST CASH DEFICIT] DAY: {deficits[1][0]},AMOUNT: SGD{deficits[1][1]:.0f}")
-if len(deficits) > 2:
-    print(f"[3RD HIGHEST CASH DEFICIT] DAY: {deficits[2][0]},AMOUNT: SGD{deficits[2][1]:.0f}")
+    # Read the csv file
+    with fp.open(mode="r", encoding="UTF-8", newline="") as file:
+        reader = csv.reader(file)
+        next(reader) # Skip header
+
+        # Create an empty list
+        profitloss = []
+
+        # Append day and profit and loss into the profitloss list
+        for row in reader:
+            # Get the day, cash on hand 
+            # And append to the profit and loss list
+            profitloss.append([row[0],row[4]])
+
+    # Assign the results of the calculations functions
+    surplus,deficits,fluctuate = calculations(profitloss)
+
+    # Prints results based on the scenarios
+    # If profit and loss is always increasing
+    if len(surplus) == len(profitloss)-1: 
+        surplus.sort()
+        print(f"[NET PROFIT SURPLUS] NET PROFIT ON EACH DAY IS HIGHER THEN THE PREVIOUS DAY")
+        print(f"[HIGHEST NET PROFIT SURPLUS] DAY: {surplus[-1][1]}, AMOUNT: SGD {abs(surplus[-1][0])}")
+
+    # If profit and loss is always decreasing
+    elif len(deficits) == len(profitloss)-1 : 
+        deficits.sort()
+        print(f"[NET PROFIT DEFICIT] NET PROFIT ON EACH DAY IS LOWER THEN THE PREVIOUS DAY")
+        print(f"[HIGHEST NET PROFIT DEFICIT] DAY: {deficits[0][1]}, AMOUNT: SGD {abs(deficits[0][0])}")
+
+    # If profit and loss fluctuates
+    else: 
+        # Lists all days with a deficit and the amount
+        for day in fluctuate: 
+            if day[0] < 0: 
+                    print(f"[NET PROFIT DEFICIT] DAY: {day[1]}, AMOUNT: SGD {abs(day[0])}")
+        # Sorts and prints the top 3 highest deficits
+        fluctuate.sort()
+        print(f"[HIGHEST NET PROFIT DEFICIT] DAY: {fluctuate[0][1]}, AMOUNT: SGD {abs(fluctuate[0][0])}")
+        print(f"[2ND HIGHEST NET PROFIT DEFICIT] DAY: {fluctuate[1][1]}, AMOUNT: SGD {abs(fluctuate[1][0])}")
+        print(f"[3RD HIGHEST NET PROFIT DEFICIT] DAY: {fluctuate[2][1]}, AMOUNT: SGD {abs(fluctuate[2][0])}")
+
+# Test
+csv_file_path = "csv_reports/Profit_and_Loss.csv"
+profit_loss(csv_file_path)

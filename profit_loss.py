@@ -46,13 +46,13 @@ for day in profitloss[1:]:
 # If profit and loss is always increasing
 if len(surplus) == len(profitloss)-1: 
     surplus.sort()
-    print(f"[NET PROFIT SURPLUS] NET PROFIT ON EACH DAY IS HIGHER THEN THE PREVIOUS DAY")
+    print("[NET PROFIT SURPLUS] NET PROFIT ON EACH DAY IS HIGHER THEN THE PREVIOUS DAY")
     print(f"[HIGHEST NET PROFIT SURPLUS] DAY: {surplus[-1][1]}, AMOUNT: SGD {abs(surplus[-1][0])}")
 
 # If profit and loss is always decreasing
 elif len(deficits) == len(profitloss)-1 : 
     deficits.sort()
-    print(f"[NET PROFIT DEFICIT] NET PROFIT ON EACH DAY IS LOWER THEN THE PREVIOUS DAY")
+    print("[NET PROFIT DEFICIT] NET PROFIT ON EACH DAY IS LOWER THEN THE PREVIOUS DAY")
     print(f"[HIGHEST NET PROFIT DEFICIT] DAY: {deficits[0][1]}, AMOUNT: SGD {abs(deficits[0][0])}")
 
 # If profit and loss fluctuates
