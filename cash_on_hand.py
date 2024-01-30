@@ -76,4 +76,7 @@ def cashonhand():
         result += f"[2ND HIGHEST CASH DEFICIT] DAY: {fluctuate[1][1]}, AMOUNT: SGD {abs(fluctuate[1][0])}\n"
         result += f"[3RD HIGHEST CASH DEFICIT] DAY: {fluctuate[2][1]}, AMOUNT: SGD {abs(fluctuate[2][0])}\n"
     
-    return result
+    file_path = Path.cwd()/"Summary_report.txt"
+    
+    with file_path.open(mode="a", encoding="UTF-8", newline="") as file:
+        file.write(result)

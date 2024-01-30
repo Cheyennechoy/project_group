@@ -69,11 +69,14 @@ def profitandloss():
         # Lists all days with a deficit and the amount
         for day in fluctuate: 
             if day[0] < 0: 
-                    result += f"[NET PROFIT DEFICIT] DAY: {day[1]}, AMOUNT: SGD {abs(day[0])}\n"
+                result += f"[NET PROFIT DEFICIT] DAY: {day[1]}, AMOUNT: SGD {abs(day[0])}\n"
         # Sorts and prints the top 3 highest deficits
         fluctuate.sort()
         result += f"[HIGHEST NET PROFIT DEFICIT] DAY: {fluctuate[0][1]}, AMOUNT: SGD {abs(fluctuate[0][0])}\n"
         result += f"[2ND HIGHEST NET PROFIT DEFICIT] DAY: {fluctuate[1][1]}, AMOUNT: SGD {abs(fluctuate[1][0])}\n"
         result += f"[3RD HIGHEST NET PROFIT DEFICIT] DAY: {fluctuate[2][1]}, AMOUNT: SGD {abs(fluctuate[2][0])}\n"
 
-    return result
+    file_path = Path.cwd()/"Summary_report.txt"
+    
+    with file_path.open(mode="a", encoding="UTF-8", newline="") as file:
+        file.write(result)
