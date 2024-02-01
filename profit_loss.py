@@ -24,7 +24,7 @@ def profitandloss():
             # And append to the profit and loss list
             profitloss.append([row[0],row[4]])
 
-    # Create Lists for cash surplus, deficits and fluctuations
+    # Create Lists for profit surplus, deficits and fluctuations
     surplus = []
     deficits = []
     fluctuate = []
@@ -48,7 +48,6 @@ def profitandloss():
             deficits.append((diff,day[0]))
             fluctuate.append((diff,day[0]))
             start = PAL
-    # return the surplus, deficits and fluctuations
 
     # Prints results based on the scenarios
     # If profit and loss is always increasing
@@ -80,3 +79,4 @@ def profitandloss():
     
     with file_path.open(mode="a", encoding="UTF-8", newline="") as file:
         file.write(result)
+        # Writes results into txt file
