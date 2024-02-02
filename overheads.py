@@ -35,7 +35,7 @@ def overheadsfunc():
     # Create the text file 
     file_path.touch()
 
-    # Write the paymentSummary information in the text file
+    # Write the overheads information in the text file
     with file_path.open(mode="w", encoding="UTF-8", newline="") as file:
-    # Write the headings
+    # Write the result 
         file.write(result)

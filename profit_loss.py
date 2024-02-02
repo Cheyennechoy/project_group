@@ -20,11 +20,11 @@ def profitandloss():
 
         # Append day and profit and loss into the profitloss list
         for row in reader:
-            # Get the day, cash on hand 
+            # Get the day, net profit 
             # And append to the profit and loss list
             profitloss.append([row[0],row[4]])
 
-    # Create Lists for cash surplus, deficits and fluctuations
+    # Create Lists for net profit surplus, deficits and fluctuations
     surplus = []
     deficits = []
     fluctuate = []
