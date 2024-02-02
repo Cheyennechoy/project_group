@@ -44,7 +44,7 @@ def cashonhand():
             fluctuate.append((diff,day[0]))
             start = COH
 
-        # Check for an decrease in cash in hand/deficit
+        # Check for an decrease in cash on hand/deficit
         elif COH < start: 
             deficits.append((diff,day[0]))
             fluctuate.append((diff,day[0]))

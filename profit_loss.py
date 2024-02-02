@@ -18,17 +18,14 @@ def profitandloss():
         # Create an empty list
         profitloss = []
 
-        # Append day and profit and loss into the profitloss list
+        # Append day and net profit into the profitloss list
         for row in reader:
             # Get the day, net profit 
             # And append to the profit and loss list
             profitloss.append([row[0],row[4]])
 
-<<<<<<< HEAD
+
     # Create Lists for net profit surplus, deficits and fluctuations
-=======
-    # Create Lists for profit surplus, deficits and fluctuations
->>>>>>> 8fbc458047dd99eecb0b09b37a4c88ef3d4204cf
     surplus = []
     deficits = []
     fluctuate = []
@@ -53,9 +50,10 @@ def profitandloss():
             fluctuate.append((diff,day[0]))
             start = PAL
 
+    result="" # Stores results
+    
     # Prints results based on the scenarios
     # If profit and loss is always increasing
-    result="" # Stores results
     if len(surplus) == len(profitloss)-1: 
         surplus.sort()
         result += "[NET PROFIT SURPLUS] NET PROFIT ON EACH DAY IS HIGHER THEN THE PREVIOUS DAY\n"
