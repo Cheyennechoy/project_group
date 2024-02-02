@@ -80,3 +80,4 @@ def cashonhand():
     
     with file_path.open(mode="a", encoding="UTF-8", newline="") as file:
         file.write(result)
+        # Writes the result into txt file
